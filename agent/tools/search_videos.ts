@@ -53,7 +53,9 @@ export default defineTool({
       .split("\n")
       .filter((line) => line.startsWith("{"))
       .map((line) => JSON.parse(line) as SearchEntry)
-      .filter((entry): entry is SearchEntry & { id: string } => typeof entry.id === "string" && entry.id.length > 0)
+      .filter(
+        (entry): entry is SearchEntry & { id: string } => typeof entry.id === "string" && entry.id.length > 0,
+      )
       .map((entry) => ({
         url: `https://www.youtube.com/watch?v=${entry.id}`,
         title: typeof entry.title === "string" ? entry.title : entry.id,
@@ -64,7 +66,9 @@ export default defineTool({
               ? entry.uploader
               : null,
         duration: formatDuration(
-          typeof entry.duration === "number" && Number.isFinite(entry.duration) ? Math.round(entry.duration) : null,
+          typeof entry.duration === "number" && Number.isFinite(entry.duration)
+            ? Math.round(entry.duration)
+            : null,
         ),
       }));
 

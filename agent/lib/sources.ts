@@ -53,9 +53,7 @@ export function assertAllowedSource(rawUrl: string): URL {
 
   const host = url.hostname.toLowerCase();
   if (!patterns.some((pattern) => hostMatches(host, pattern))) {
-    throw new SourceNotAllowedError(
-      `${host} is not an allowed source. Allowed: ${patterns.join(", ")}.`,
-    );
+    throw new SourceNotAllowedError(`${host} is not an allowed source. Allowed: ${patterns.join(", ")}.`);
   }
 
   return url;

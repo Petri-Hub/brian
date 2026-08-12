@@ -5,7 +5,9 @@ import { chatSdkChannel } from "eve/channels/chat-sdk";
 import { takeStagedAudio, type StagedAudio } from "#lib/pending-audio.js";
 import { transcribeAudio } from "#lib/transcribe.js";
 
-const mode = (process.env.TELEGRAM_MODE as TelegramAdapterMode | undefined) ?? (process.env.VERCEL ? "webhook" : "polling");
+const mode =
+  (process.env.TELEGRAM_MODE as TelegramAdapterMode | undefined) ??
+  (process.env.VERCEL ? "webhook" : "polling");
 
 export const { bot, channel, send } = chatSdkChannel({
   userName: process.env.TELEGRAM_BOT_USERNAME ?? "brian",
@@ -30,7 +32,9 @@ export const { bot, channel, send } = chatSdkChannel({
       for (const [index, item] of staged.entries()) {
         const bytes = await sandbox.readBinaryFile({ path: item.path });
         if (!bytes) {
-          await thread.post({ markdown: `Could not read the audio for "${item.title}" back from the sandbox.` });
+          await thread.post({
+            markdown: `Could not read the audio for "${item.title}" back from the sandbox.`,
+          });
           continue;
         }
         await thread.post({

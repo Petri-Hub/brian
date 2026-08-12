@@ -23,7 +23,8 @@ function parseProbe(stdout: string): ProbeResult {
   if (!line) return { title: "audio", durationSeconds: null };
 
   const info = JSON.parse(line) as { title?: unknown; duration?: unknown };
-  const duration = typeof info.duration === "number" && Number.isFinite(info.duration) ? Math.round(info.duration) : null;
+  const duration =
+    typeof info.duration === "number" && Number.isFinite(info.duration) ? Math.round(info.duration) : null;
   return {
     title: typeof info.title === "string" && info.title.trim().length > 0 ? info.title.trim() : "audio",
     durationSeconds: duration,
@@ -62,7 +63,9 @@ export default defineTool({
     });
 
     if (download.exitCode !== 0) {
-      throw new Error(`Could not extract audio from ${source.hostname}: ${download.stderr.trim().slice(-600)}`);
+      throw new Error(
+        `Could not extract audio from ${source.hostname}: ${download.stderr.trim().slice(-600)}`,
+      );
     }
 
     const listing = await sandbox.run({
@@ -70,7 +73,9 @@ export default defineTool({
     });
     const downloaded = listing.stdout.trim().split("\n").filter(Boolean).at(0);
     if (!downloaded) {
-      throw new Error("yt-dlp reported success but produced no audio file (the source may exceed the size limit).");
+      throw new Error(
+        "yt-dlp reported success but produced no audio file (the source may exceed the size limit).",
+      );
     }
 
     const stat = await sandbox.run({ command: `bash -lc 'stat -c %s ${absoluteDir}/${downloaded}'` });
@@ -79,7 +84,9 @@ export default defineTool({
       throw new Error("Could not determine the size of the downloaded audio.");
     }
     if (sizeBytes > MAX_AUDIO_BYTES) {
-      throw new Error(`The audio is ${Math.round(sizeBytes / 1024 / 1024)} MB, over the ${MAX_AUDIO_BYTES / 1024 / 1024} MB Telegram limit.`);
+      throw new Error(
+        `The audio is ${Math.round(sizeBytes / 1024 / 1024)} MB, over the ${MAX_AUDIO_BYTES / 1024 / 1024} MB Telegram limit.`,
+      );
     }
 
     const extension = extensionOf(downloaded);

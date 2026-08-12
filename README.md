@@ -109,11 +109,11 @@ produção o adapter entra em modo webhook sozinho (`process.env.VERCEL`), e o
 
 ## Diferenças entre local e produção
 
-| | Local | Vercel |
-|---|---|---|
-| Telegram | webhook via ngrok | webhook no domínio do deploy |
-| Sandbox | Docker | Vercel Sandbox |
-| Egress | sem restrição | allowlist de domínios |
+|                | Local                      | Vercel                          |
+| -------------- | -------------------------- | ------------------------------- |
+| Telegram       | webhook via ngrok          | webhook no domínio do deploy    |
+| Sandbox        | Docker                     | Vercel Sandbox                  |
+| Egress         | sem restrição              | allowlist de domínios           |
 | Estado do chat | memória (perde no restart) | trocar por Redis antes de valer |
 
 O item que mais engana é o egress: o yt-dlp roda no **seu** IP local e no IP de
