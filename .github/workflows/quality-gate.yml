@@ -1,7 +1,4 @@
-name: quality-gate
-
-# Runs the checks that must pass before code lands on main.
-# Today that is the TypeScript compiler; add further steps as the project grows.
+name: Quality Gate
 
 on:
   push:
@@ -10,20 +7,50 @@ on:
     branches: [main]
 
 jobs:
-  typecheck:
-    name: typecheck
+  setup:
+    name: setup
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
 
-      # npm ci installs exactly what package-lock.json pins, and fails if the
-      # lockfile is out of sync with package.json.
-      - run: npm ci
+      - name: Restore dependencies
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
-      - run: npm run typecheck
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Restore dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Run TypeScript compiler
+        run: npm run typecheck
