@@ -16,7 +16,6 @@
     "@ai-sdk/openai": "^4.0.40",
     "@chat-adapter/state-memory": "^4.37.0",
     "@chat-adapter/telegram": "^4.37.0",
-    "@vercel/connect": "0.4.3",
     "ai": "^7.0.58",
     "chat": "^4.37.0",
     "eve": "^0.33.0",
