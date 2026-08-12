@@ -8,13 +8,17 @@
   },
   "scripts": {
     "build": "eve build",
-    "dev": "eve dev",
-    "start": "eve start",
+    "dev": "NODE_OPTIONS=--dns-result-order=ipv4first eve dev",
+    "start": "NODE_OPTIONS=--dns-result-order=ipv4first eve start",
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^4.0.40",
+    "@chat-adapter/state-memory": "^4.37.0",
+    "@chat-adapter/telegram": "^4.37.0",
     "@vercel/connect": "0.4.3",
     "ai": "^7.0.58",
+    "chat": "^4.37.0",
     "eve": "^0.33.0",
     "zod": "4.4.3"
   },
@@ -28,5 +32,4 @@
   "engines": {
     "node": "24.x"
   }
-
 }
