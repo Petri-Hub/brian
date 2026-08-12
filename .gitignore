@@ -1,24 +1,11 @@
-# Installed dependencies, restored from package-lock.json.
 node_modules
-
-# Local secrets and machine-specific settings. .env.example is the template.
 .env*
 !.env.example
-
-# eve's local state: builds, sandbox cache, traces and dev logs.
 .eve
-
-# Vercel project link and pulled environment.
 .vercel
-
-# Build output.
 .next
 .output
 .nitro
 dist
-
-# macOS folder metadata.
 .DS_Store
-
-# TypeScript incremental build cache.
 *.tsbuildinfo
