@@ -8,8 +8,8 @@
   },
   "scripts": {
     "build": "eve build",
-    "dev": "NODE_OPTIONS=--dns-result-order=ipv4first eve dev",
-    "start": "NODE_OPTIONS=--dns-result-order=ipv4first eve start",
+    "dev": "eve dev",
+    "start": "eve start",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc",
